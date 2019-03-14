@@ -1,0 +1,56 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Main {
+    public static String encrypt(String text , String key) {
+
+        String alfabe = "";
+        for (int i = 0, j = 0; i < text.length(); i++) {
+
+            char a = text.charAt(i);
+
+
+            alfabe += (char) ((a + key.charAt(j) +26 - 1) % 26 + 'A');            //Şifrelemenin kuralı burada gerçekleşiyor...
+            j = ++j % key.length();
+
+        }
+        return alfabe;
+    }
+    public static String toUpperCase(String text){
+
+        text = text.toUpperCase();
+
+        return text;
+    }
+
+    public static String decrypt(String encryptedtext , String key){
+
+        String alfabe = "";
+        String decryptedtext = encrypt(encryptedtext,"NESNEYONELIMLI");
+
+        for (int i = 0 ,j = 0 ; i <encryptedtext.length() ; i++) {
+
+            char a = encryptedtext.charAt(i);
+
+
+            decryptedtext +=(char)((a-key.charAt(j)+26)%26+'A');
+            j = ++j % key.length();
+
+        }
+        return encryptedtext;
+
+
+
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Metni Giriniz:");
+        String message = scan.nextLine();
+        System.out.println("Mesaj: "+message.toUpperCase());
+        System.out.println("Encrypt:"+encrypt(message,"NESNEYONELIMLI") );
+        System.out.println("Decrypt: "+toUpperCase(decrypt(message,"NESNEYONELIMLI")));
+    }
+}
